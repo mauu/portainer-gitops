@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: portainer-gitops-service.fcn.applications
+  name: portainer-gitops-service
 spec:
   selector:
     app: gitops-demo
