@@ -26,6 +26,6 @@ spec:
   selector:
     app: gitops-demo
   ports:
-    - port: 3111
-      targetPort: 3111
+    - port: 3112
+      targetPort: 3112
   type: LoadBalancer
