@@ -16,7 +16,7 @@ spec:
       - name: gitops-demo
         image: hrittik/gitops:latest
         ports:
-        - containerPort: 3112
+        - containerPort: 3111
 ---
 apiVersion: v1
 kind: Service
@@ -26,6 +26,6 @@ spec:
   selector:
     app: gitops-demo
   ports:
-    - port: 3112
-      targetPort: 3112
+    - port: 3111
+      targetPort: 3111
   type: LoadBalancer
