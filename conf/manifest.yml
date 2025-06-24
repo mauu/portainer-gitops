@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portainer-ops
+  name: portainer-ops-develop
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gitops-demo
+      app: gitops-demo-develop
   template:
     metadata:
       labels:
-        app: gitops-demo
+        app: gitops-demo-develop
     spec:
       containers:
-      - name: gitops-demo
-        image: mauu/gitops:latest
+      - name: gitops-demo-develop
+        image: mauu/gitops-develop:latest
         ports:
         - containerPort: 3111
