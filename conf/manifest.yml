@@ -16,4 +16,4 @@ spec:
       - name: gitops-demo
         image: mauu/gitops:latest
         ports:
-        - containerPort: 3111
+        - containerPort: 3112
