@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gitops-demo
+      app: gitops-demo-main
   template:
     metadata:
       labels:
-        app: gitops-demo
+        app: gitops-demo-main
     spec:
       containers:
-      - name: gitops-demo
+      - name: gitops-demo-main
         image: mauu/gitops-main:latest
         ports:
         - containerPort: 3112
