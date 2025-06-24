@@ -40,4 +40,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:latest
