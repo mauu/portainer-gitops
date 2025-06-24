@@ -5,7 +5,7 @@ metadata:
   name: portainer-gitops-service
 spec:
   selector:
-    app: gitops-demo
+    app: gitops-demo-develop
   ports:
     - port: 3111
       targetPort: 3111
