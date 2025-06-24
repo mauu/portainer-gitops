@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: portainer-gitops-service
+  name: portainer-gitops-service-main
 spec:
   selector:
     app: gitops-demo-main
