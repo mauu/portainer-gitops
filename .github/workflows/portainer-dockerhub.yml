@@ -6,7 +6,7 @@ name: Portainer - GitOps Demo
 # events but only for the Main branch
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,4 +40,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-develop:latest
