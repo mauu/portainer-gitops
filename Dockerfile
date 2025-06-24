@@ -5,6 +5,6 @@ WORKDIR /deploy
 
 RUN pip install -r requirements.txt 
 
-EXPOSE 3111
+EXPOSE 3112
 
 CMD ["python", "app.py", "--host=0.0.0.0"]
