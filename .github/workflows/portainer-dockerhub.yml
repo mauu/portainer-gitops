@@ -46,7 +46,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
-            ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:latest
+            #${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:latest
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: mauu/gitops-main:.*|image:mauu/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
