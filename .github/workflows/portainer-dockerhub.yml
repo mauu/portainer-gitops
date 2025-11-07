@@ -44,4 +44,10 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
+          tags: |
+            ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:latest
+      - name: Update Kubernetes manifest
+        run: |
+          sed -i "s|image: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:.*|image:${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/portainer-dockerhub.yml
+        
