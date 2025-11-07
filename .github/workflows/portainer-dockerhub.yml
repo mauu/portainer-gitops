@@ -50,4 +50,8 @@ jobs:
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:.*|image:${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
-        
+      - name: Commit and push changes
+        run: |
+         git add conf/manifest.yml
+         git commit -m "Update image tag to ${{ env.release_version }}" || echo "No changes to commit"
+         git push origin HEAD:main 
