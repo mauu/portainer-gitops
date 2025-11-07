@@ -49,5 +49,5 @@ jobs:
             ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:latest
       - name: Update Kubernetes manifest
         run: |
-          sed -i "s|image: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:.*|image:${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/portainer-dockerhub.yml
+          sed -i "s|image: ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:.*|image:${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
         
