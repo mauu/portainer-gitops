@@ -48,7 +48,7 @@ jobs:
             ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
       - name: Update Kubernetes manifest
         run: |
-          sed -i "s|image:mauu/gitops-main:v*|image:mauu/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
+          sed -i "s|image:mauu/gitops-main:.*|image:mauu/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
       - name: Commit and push changes
         run: |
          git config --local user.email "github-actions[bot]@users.noreply.github.com"
