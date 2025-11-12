@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: portainer-ops-main
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: gitops-demo-main
