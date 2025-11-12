@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: gitops-demo-main
-        image:mauu/gitops-main:v1
+        image:mauu/gitops-main:latest
         ports:
         - containerPort: 3112
