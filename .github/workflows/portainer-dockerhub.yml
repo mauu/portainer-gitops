@@ -29,7 +29,7 @@ jobs:
          git config --local user.email "github-actions[bot]@users.noreply.github.com"
          git config --local user.name "github-actions[bot]"
          git add deploy/templates/complete.html
-         git commit -m "Update html template tag to ${{ env.RELEASE_VERSION }}" || echo "No changes to commit"
+         git commit -m "Update html template last version" || echo "No changes to commit"
          git push origin HEAD:main 
       - name: Checkout
         uses: actions/checkout@v2
