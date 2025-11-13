@@ -21,8 +21,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set env
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      -
-        name: Checkout
+      - name: Update version template
+        run: |
+          sed -i "s|<p>Version.*|<p>Version ${{ env.RELEASE_VERSION }} Main Gitops Deploy by Portainer</p>|g" deploy/templates/complete.html
+      - name: Commit and push changes
+        run: |
+         git config --local user.email "github-actions[bot]@users.noreply.github.com"
+         git config --local user.name "github-actions[bot]"
+         git add deploy/templates/complete.html
+         git commit -m "Update html template tag to ${{ env.RELEASE_VERSION }}" || echo "No changes to commit"
+         git push origin HEAD:main 
+      - name: Checkout
         uses: actions/checkout@v2
       -
         name: Set up QEMU
@@ -55,6 +64,5 @@ jobs:
          git config --local user.email "github-actions[bot]@users.noreply.github.com"
          git config --local user.name "github-actions[bot]"
          git add conf/manifest.yml
-         git add deploy/templates/complete.html
          git commit -m "Update image tag to ${{ env.RELEASE_VERSION }}" || echo "No changes to commit"
          git push origin HEAD:main 
