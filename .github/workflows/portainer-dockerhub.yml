@@ -49,10 +49,12 @@ jobs:
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: mauu/gitops-main:.*|image: mauu/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
+          sed -i "s|<p>Version.*|<p>Version ${{ env.RELEASE_VERSION }} Main Gitops Deploy by Portainer</p>|g" deploy/templates/complete.html
       - name: Commit and push changes
         run: |
          git config --local user.email "github-actions[bot]@users.noreply.github.com"
          git config --local user.name "github-actions[bot]"
          git add conf/manifest.yml
+         git add deploy/templates/complete.html
          git commit -m "Update image tag to ${{ env.RELEASE_VERSION }}" || echo "No changes to commit"
          git push origin HEAD:main 
