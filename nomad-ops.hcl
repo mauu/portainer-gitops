@@ -10,7 +10,7 @@ job "nomad-gitops" {
       }
     }
     service {
-      name = "nomad-ops"
+      name = "nomad-gitops"
       tags = ["http","view","urlprefix-/nomad-gitops strip=/nomad-gitops"]
       port = "http"
       provider = "consul"
