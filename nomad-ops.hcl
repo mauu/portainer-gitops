@@ -27,6 +27,7 @@ job "nomad-gitops" {
 
       env {
         NOMAD_ADDR = "http://192.168.122.25:4646"
+        CONSUL_ADDR = "http://192.168.122.25:8500"
       }
       config {
         image = "mauu/gitops-main:v2"
