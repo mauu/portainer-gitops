@@ -11,10 +11,9 @@ job "nomad-gitops" {
     }
     service {
       name = "nomad-gitops"
-      tags = ["http","view",
-              "urlprefix-/nomad-gitops strip=/nomad-gitops",
-               "traefik.enable=true",
-               "traefik.http.routers.nomad-gitops.rule=Path(`/nomadgitops`)"]
+      tags = ["urlprefix-/nomad-gitops strip=/nomad-gitops",
+              "traefik.enable=true",
+              "traefik.http.routers.nomad-gitops.rule=Path(`/nomops`)"]
       port = "http"
       provider = "consul"
 
