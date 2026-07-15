@@ -17,4 +17,4 @@ spec:
       - name: portainer-ops-main
         image: mauu/gitops-main:v5
         ports:
-        - containerPort: 8080
+        - containerPort: 3112
