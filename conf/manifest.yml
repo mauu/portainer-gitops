@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: portainer-ops-main
+  namespace: portainer-ops
 spec:
   replicas: 1
   selector:
