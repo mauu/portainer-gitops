@@ -7,5 +7,5 @@ spec:
   selector:
     app: portainer-ops-main
   ports:
-    - port: 3112
-      targetPort: 3112
+    - port: 8080
+      targetPort: 8080
