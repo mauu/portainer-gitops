@@ -3,16 +3,16 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 200m
-  name: portainer-ops
+  name: portainer-ops-main
 spec:
   ingressClassName: nginx
   rules:
-    - host: portainer-ops-dev.k8s-app.fcn.applications
+    - host: portainer-ops-main-dev.k8s-app.fcn.applications
       http:
         paths:
           - backend:
               service:
-                name: portainer-ops
+                name: portainer-ops-main
                 port:
                   number: 8080
             path: /
