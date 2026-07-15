@@ -9,4 +9,3 @@ spec:
   ports:
     - port: 3112
       targetPort: 3112
-  type: LoadBalancer
