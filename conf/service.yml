@@ -1,11 +1,12 @@
-
 apiVersion: v1
 kind: Service
 metadata:
   name: portainer-ops-main
+  namespace: portainer-ops
 spec:
   selector:
     app: portainer-ops-main
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
