@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gitops-demo-main
+      app: portainer-ops-main
   template:
     metadata:
       labels:
-        app: gitops-demo-main
+        app: portainer-ops-main
     spec:
       containers:
-      - name: gitops-demo-main
+      - name: portainer-ops-main
         image: mauu/gitops-main:v4
         ports:
         - containerPort: 8080
