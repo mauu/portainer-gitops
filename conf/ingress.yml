@@ -1,1 +1,19 @@
-
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+  name: portainer-ops
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: portainer-ops-dev.k8s-app.fcn.applications
+      http:
+        paths:
+          - backend:
+              service:
+                name: portainer-ops
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
