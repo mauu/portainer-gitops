@@ -16,4 +16,4 @@ spec:
       - name: gitops-demo-main
         image: mauu/gitops-main:v3
         ports:
-        - containerPort: 3112
+        - containerPort: 8080
