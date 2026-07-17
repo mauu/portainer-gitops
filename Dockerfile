@@ -1,9 +1,9 @@
-FROM python:3.8
+FROM python:3.11-slim
 
 COPY deploy/ /deploy
 WORKDIR /deploy
 
-RUN pip install -r requirements.txt 
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 EXPOSE 3112
 
