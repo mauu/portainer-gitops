@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: portainer-ops-main
-        image: mauu/gitops-main:v7
+        image: mauu/gitops-main:v8
         ports:
         - containerPort: 3112
