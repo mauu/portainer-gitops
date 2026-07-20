@@ -34,15 +34,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      
       - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
+        run: |
+         docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }} -f ./Dockerfile .
+         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
+      #- name: Build and push
+      #  uses: docker/build-push-action@v2
+      #  with:
+      #    context: ./
+      #    file: ./Dockerfile
+      #    platforms: linux/amd64
+      #    push: true
+      #    tags: |
+      #      ${{ secrets.DOCKER_HUB_USERNAME }}/gitops-main:${{ env.RELEASE_VERSION }}
       - name: Update Kubernetes manifest
         run: |
           sed -i "s|image: mauu/gitops-main:.*|image: mauu/gitops-main:${{ env.RELEASE_VERSION }}|g" conf/manifest.yml
