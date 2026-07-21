@@ -91,7 +91,7 @@ spec:
           image: nginxinc/nginx-unprivileged:alpine
           workingDir: /usr/share/nginx/html
           ports:
-            - containerPort: 8080
+            - containerPort: 3112
               protocol: TCP
           volumeMounts:
             - name: app-data
