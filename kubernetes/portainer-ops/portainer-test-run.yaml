@@ -11,7 +11,7 @@ metadata:
     portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
     portainer-run/git-branch: main
     portainer-run/git-path: kubernetes/portainer-ops/portainer-test-run.yaml
-    portainer-run/vibe-source-path: conf
+    portainer-run/vibe-source-path: kubernetes/portainer-ops/portainer-test-run/src
 spec:
   accessModes:
     - ReadWriteOnce
@@ -32,7 +32,7 @@ metadata:
     portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
     portainer-run/git-branch: main
     portainer-run/git-path: kubernetes/portainer-ops/portainer-test-run.yaml
-    portainer-run/vibe-source-path: conf
+    portainer-run/vibe-source-path: kubernetes/portainer-ops/portainer-test-run/src
 spec:
   replicas: 1
   selector:
@@ -55,9 +55,10 @@ spec:
             - sh
             - '-c'
             - >-
-              git config --global http.sslVerify false && git clone --depth 1 --branch develop
+              git config --global http.sslVerify false && git clone --depth 1 --branch main
               https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/mauu/portainer-gitops /tmp/repo && mkdir -p
-              /usr/share/nginx/html && cp -r /tmp/repo/conf/. /usr/share/nginx/html/ && rm -rf /tmp/repo
+              /usr/share/nginx/html && cp -r /tmp/repo/kubernetes/portainer-ops/portainer-test-run/src/.
+              /usr/share/nginx/html/ && rm -rf /tmp/repo
           resources:
             requests:
               cpu: 50m
@@ -89,6 +90,10 @@ spec:
       containers:
         - name: portainer-test-run
           image: nginxinc/nginx-unprivileged:alpine
+          command:
+            - sh
+            - '-c'
+            - nginx -g 'daemon off;'
           workingDir: /usr/share/nginx/html
           ports:
             - containerPort: 8080
@@ -128,7 +133,7 @@ metadata:
     portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
     portainer-run/git-branch: main
     portainer-run/git-path: kubernetes/portainer-ops/portainer-test-run.yaml
-    portainer-run/vibe-source-path: conf
+    portainer-run/vibe-source-path: kubernetes/portainer-ops/portainer-test-run/src
 spec:
   type: ClusterIP
   selector:
@@ -151,7 +156,7 @@ metadata:
     portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
     portainer-run/git-branch: main
     portainer-run/git-path: kubernetes/portainer-ops/portainer-test-run.yaml
-    portainer-run/vibe-source-path: conf
+    portainer-run/vibe-source-path: kubernetes/portainer-ops/portainer-test-run/src
     kubernetes.io/ingress.class: nginx
 spec:
   ingressClassName: nginx
