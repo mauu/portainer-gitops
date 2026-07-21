@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portainer-ops-main
+  namespace: portainer-ops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portainer-ops-main
+  template:
+    metadata:
+      labels:
+        app: portainer-ops-main
+    spec:
+      containers:
+      - name: portainer-ops-main
+        image: mauu/gitops-main:v11
+        ports:
+        - containerPort: 3112
