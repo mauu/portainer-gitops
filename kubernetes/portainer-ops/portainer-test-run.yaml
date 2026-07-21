@@ -121,16 +121,11 @@ metadata:
   labels:
     app: portainer-test-run
     managed-by: portainer-run
-  annotations:
-    portainer-run/deploy-type: vibe
-    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
-    portainer-run/git-branch: main
-    portainer-run/git-path: kubernetes/portainer-ops/portainer-test-run.yaml
 spec:
   type: NodePort
   selector:
     app: portainer-test-run
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 3112
+      targetPort: 3112
       protocol: TCP
