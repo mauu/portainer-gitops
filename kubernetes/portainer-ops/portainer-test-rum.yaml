@@ -124,7 +124,7 @@ metadata:
     app: portainer-test-rum
     managed-by: portainer-run
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: portainer-test-rum
   ports:
