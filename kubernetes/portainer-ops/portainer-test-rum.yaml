@@ -91,7 +91,7 @@ spec:
           image: nginxinc/nginx-unprivileged:alpine
           workingDir: /usr/share/nginx/html
           ports:
-            - containerPort: 3112
+            - containerPort: 8080
               protocol: TCP
           volumeMounts:
             - name: app-data
@@ -124,7 +124,6 @@ metadata:
     app: portainer-test-rum
     managed-by: portainer-run
 spec:
-  type: LoadBalancer
   selector:
     app: portainer-test-rum
   ports:
