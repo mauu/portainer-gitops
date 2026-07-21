@@ -123,46 +123,11 @@ metadata:
   labels:
     app: portainer-test-rum
     managed-by: portainer-run
-  annotations:
-    portainer-run/deploy-type: vibe
-    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
-    portainer-run/git-branch: main
-    portainer-run/git-path: kubernetes/portainer-ops/portainer-test-rum.yaml
-    portainer-run/vibe-source-path: conf
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: portainer-test-rum
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 3112
+      targetPort: 3112
       protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: portainer-test-rum
-  namespace: portainer-ops
-  labels:
-    app: portainer-test-rum
-    managed-by: portainer-run
-  annotations:
-    portainer-run/deploy-type: vibe
-    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
-    portainer-run/git-branch: main
-    portainer-run/git-path: kubernetes/portainer-ops/portainer-test-rum.yaml
-    portainer-run/vibe-source-path: conf
-    kubernetes.io/ingress.class: contour
-spec:
-  ingressClassName: contour
-  rules:
-    - host: portainer-ops-run.k8s-app.fcn.applications
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: portainer-test-rum
-                port:
-                  number: 8080
