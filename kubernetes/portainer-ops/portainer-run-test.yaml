@@ -1,0 +1,164 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: portainer-run-test-data
+  namespace: portainer-ops
+  labels:
+    app: portainer-run-test
+    managed-by: portainer-run
+  annotations:
+    portainer-run/deploy-type: vibe
+    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
+    portainer-run/git-branch: main
+    portainer-run/git-path: kubernetes/portainer-ops/portainer-run-test.yaml
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portainer-run-test
+  namespace: portainer-ops
+  labels:
+    app: portainer-run-test
+    managed-by: portainer-run
+  annotations:
+    portainer-run/deploy-type: vibe
+    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
+    portainer-run/git-branch: main
+    portainer-run/git-path: kubernetes/portainer-ops/portainer-run-test.yaml
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portainer-run-test
+  template:
+    metadata:
+      labels:
+        app: portainer-run-test
+        managed-by: portainer-run
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      automountServiceAccountToken: false
+      initContainers:
+        - name: vibe-sync
+          image: alpine/git:latest
+          command:
+            - sh
+            - '-c'
+            - >-
+              git config --global http.sslVerify false && git clone --depth 1 --branch main
+              https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/mauu/portainer-gitops /tmp/repo && mkdir -p
+              /usr/share/nginx/html && cp -r /tmp/repo/. /usr/share/nginx/html/ && rm -rf /tmp/repo
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 512Mi
+          volumeMounts:
+            - name: app-data
+              mountPath: /usr/share/nginx/html
+          env:
+            - name: GIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: portainer-run-test-git-credentials
+                  key: username
+            - name: GIT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: portainer-run-test-git-credentials
+                  key: token
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      containers:
+        - name: portainer-run-test
+          image: nginxinc/nginx-unprivileged:alpine
+          workingDir: /usr/share/nginx/html
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: app-data
+              mountPath: /usr/share/nginx/html
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1Gi
+            limits:
+              cpu: '1'
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      volumes:
+        - name: app-data
+          persistentVolumeClaim:
+            claimName: portainer-run-test-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portainer-run-test
+  namespace: portainer-ops
+  labels:
+    app: portainer-run-test
+    managed-by: portainer-run
+  annotations:
+    portainer-run/deploy-type: vibe
+    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
+    portainer-run/git-branch: main
+    portainer-run/git-path: kubernetes/portainer-ops/portainer-run-test.yaml
+spec:
+  type: ClusterIP
+  selector:
+    app: portainer-run-test
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portainer-run-test
+  namespace: portainer-ops
+  labels:
+    app: portainer-run-test
+    managed-by: portainer-run
+  annotations:
+    portainer-run/deploy-type: vibe
+    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
+    portainer-run/git-branch: main
+    portainer-run/git-path: kubernetes/portainer-ops/portainer-run-test.yaml
+    kubernetes.io/ingress.class: contour
+spec:
+  ingressClassName: contour
+  rules:
+    - host: portainer-run-test.portainer-ops-main.k8s-app.fcn.applications
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portainer-run-test
+                port:
+                  number: 8080
