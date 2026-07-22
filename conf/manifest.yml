@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portainer-ops-main
-  namespace: portainer-ops
+  name: midori-ops-main
+  namespace: midori
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: portainer-ops-main
+      app: midori-ops-main
   template:
     metadata:
       labels:
-        app: portainer-ops-main
+        app: midori-ops-main
     spec:
       containers:
-      - name: portainer-ops-main
+      - name: midori-ops-main
         image: mauu/gitops-main:v11
         ports:
         - containerPort: 3112
