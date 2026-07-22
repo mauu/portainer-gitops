@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: midori-ops-main
-        image: mauu/gitops-main:v11
+        image: mauu/gitops-main:v13
         ports:
         - containerPort: 3112
