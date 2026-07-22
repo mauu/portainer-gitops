@@ -121,11 +121,6 @@ metadata:
   labels:
     app: prova
     managed-by: portainer-run
-  annotations:
-    portainer-run/deploy-type: vibe
-    portainer-run/git-target-id: f850685c-412a-451b-9698-26f67313a2df
-    portainer-run/git-branch: main
-    portainer-run/git-path: kubernetes/portainer-ops/prova.yaml
 spec:
   type: NodePort
   selector:
