@@ -126,6 +126,6 @@ spec:
   selector:
     app: prova
   ports:
-    - port: 8080
-      targetPort: 8080
+    - port: 3112
+      targetPort: 3112
       protocol: TCP
